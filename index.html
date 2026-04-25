@@ -22,14 +22,18 @@
   <h2>1. What data we collect</h2>
   <ul>
     <li><strong>Email address</strong> – collected when you sign up via email one-time password or Google OAuth, used solely for authentication.</li>
-    <li><strong>Food and nutrition data</strong> – food items you create, calorie and macro values, and daily log entries. This is the core data of the app. It is created entirely by you.</li>
-    <li><strong>Photos</strong> – when you use the "Snap &amp; Log" feature, a photo is sent to our backend API for AI analysis. Photos are <em>not</em> stored; they are transmitted, analysed, and discarded immediately.</li>
-    <li><strong>App settings and goals</strong> – your daily macro goals and preferences (e.g. time format, theme) are stored to sync across devices.</li>
+    <li><strong>Food and nutrition data</strong> – food items you create, calorie and macro values, and daily log entries. This is the core data of the app and is created entirely by you.</li>
+    <li><strong>Food photos (optional)</strong> – you may attach a photo to any food item in your personal database. These photos are stored in Supabase Storage and served via CDN so they appear throughout the app. You can remove a food photo at any time by editing the food item.</li>
+    <li><strong>Analysis photos</strong> – when you use Quick Scan or Describe to have AI analyse a meal, the photo or text description is sent to our backend API for analysis. Analysis photos are <em>not</em> stored; they are transmitted, analysed, and discarded immediately.</li>
+    <li><strong>Weight data</strong> – if you use the weight tracking feature, your logged weight entries and goal weight are stored.</li>
+    <li><strong>App settings and goals</strong> – your daily macro goals and preferences (e.g. time format) are stored to sync across devices.</li>
   </ul>
 
   <h2>2. How data is stored</h2>
-  <p>All user data (account, food database, log entries, settings) is stored in <a href="https://supabase.com">Supabase</a>, a managed Postgres database service. Data is protected by Row Level Security — each user can only access their own data. Supabase infrastructure is hosted on AWS.</p>
-  <p>Photo analysis requests are processed by our API hosted on <a href="https://azure.microsoft.com">Microsoft Azure</a> (Australia East region) and by <a href="https://www.anthropic.com">Anthropic's Claude API</a>. No photo data is retained after the response is returned.</p>
+  <p>All user data (account, food database, log entries, weight entries, settings) is stored in <a href="https://supabase.com">Supabase</a>, a managed Postgres database service. Data is protected by Row Level Security — each user can only access their own data. Supabase infrastructure is hosted on AWS.</p>
+  <p>Food item photos are stored in Supabase Storage (a public CDN-backed bucket). Photos are scoped to your user ID and are only accessible via the specific URL assigned to each image.</p>
+  <p>AI analysis requests are processed by our API hosted on <a href="https://azure.microsoft.com">Microsoft Azure</a> (Australia East region) and by <a href="https://www.anthropic.com">Anthropic's Claude API</a>. No analysis photo data is retained after the response is returned.</p>
+  <p>Food search uses semantic similarity powered by <a href="https://openai.com">OpenAI's embedding API</a>. Food names (not photos or personal details) are sent to OpenAI to generate search embeddings. These are stored in your personal food database for future searches.</p>
 
   <h2>3. How data is used</h2>
   <p>Your data is used exclusively to provide the Bite app's features. We do not:</p>
@@ -37,17 +41,20 @@
     <li>Sell your data to third parties</li>
     <li>Use your data for advertising</li>
     <li>Share your data with anyone except the infrastructure providers listed above (under their own privacy policies)</li>
-    <li>Store or analyse your food photos</li>
+    <li>Store or analyse AI analysis photos beyond the immediate response</li>
   </ul>
 
   <h2>4. Data retention and deletion</h2>
-  <p>Your data is retained for as long as your account exists. To delete your account and all associated data, contact us at the email below. We will permanently delete your account and all data within 30 days.</p>
+  <p>Your data is retained for as long as your account exists. To delete your account and all associated data (including any stored food photos), contact us at the email below. We will permanently delete your account and all data within 30 days.</p>
 
   <h2>5. Children</h2>
   <p>Bite is not directed at children under 13. We do not knowingly collect data from children under 13.</p>
 
   <h2>6. Changes to this policy</h2>
   <p>We may update this policy from time to time. Changes will be posted at this URL. Continued use of the app after changes constitutes acceptance.</p>
+
+  <h2>7. Contact</h2>
+  <p>For privacy questions or deletion requests, contact: <a href="mailto:philipvkolar@gmail.com">philipvkolar@gmail.com</a></p>
 
 </body>
 </html>
